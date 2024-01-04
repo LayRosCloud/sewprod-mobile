@@ -1,4 +1,4 @@
-package com.betrayal.atcutter.server;
+package com.betrayal.atcutter.server.repositories;
 
 import com.betrayal.atcutter.models.Material;
 import com.betrayal.atcutter.models.Party;
@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-public interface MaterialRepository {
+public interface MaterialRepository extends Repository {
     @GET("/v1/materials/")
     Call<List<Material>> getAll(@Header("Authorization") String authorization);
 

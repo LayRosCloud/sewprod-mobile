@@ -1,4 +1,4 @@
-package com.betrayal.atcutter.server;
+package com.betrayal.atcutter.server.repositories;
 
 import com.betrayal.atcutter.models.Party;
 import com.betrayal.atcutter.models.SuccessDelete;
@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-public interface PartyRepository {
+public interface PartyRepository extends Repository {
     @GET("/v1/parties/")
     Call<List<Party>> getAll(@Header("Authorization") String authorization);
 

@@ -1,4 +1,4 @@
-package com.betrayal.atcutter.server;
+package com.betrayal.atcutter.server.repositories;
 
 import com.betrayal.atcutter.models.Size;
 
@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-public interface SizeRepository {
+public interface SizeRepository extends Repository {
     @GET("/v1/sizes/")
     Call<List<Size>> getAll(@Header("Authorization") String authorization);
 

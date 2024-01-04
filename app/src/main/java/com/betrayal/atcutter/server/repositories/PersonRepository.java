@@ -1,4 +1,4 @@
-package com.betrayal.atcutter.server;
+package com.betrayal.atcutter.server.repositories;
 
 import com.betrayal.atcutter.models.Auth;
 import com.betrayal.atcutter.models.Person;
@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface PersonRepository {
+public interface PersonRepository extends Repository{
     @GET("/v1/persons")
     Call<List<Person>> getAll();
 

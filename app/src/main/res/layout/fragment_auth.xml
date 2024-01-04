@@ -34,28 +34,50 @@
             android:text="Закройщик"
             android:textSize="30sp"
             android:textStyle="bold" />
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Введите почту*"
-            android:inputType="textEmailAddress" />
+            android:orientation="vertical"
+            >
+            <EditText
+                android:id="@+id/etEmail"
+                android:drawableStart="@drawable/ic_people"
+                android:drawablePadding="10dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:elevation="5dp"
+                android:layout_height="wrap_content"
+                android:hint="Введите почту*"
+                android:inputType="textEmailAddress" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Введите пароль*"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/etPassword"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="10dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:elevation="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:hint="Введите пароль*"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
 
         <Button
-            android:id="@+id/enterToApplication"
+            android:id="@+id/btnEnter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:elevation="5dp"
             android:text="Войти"/>
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnQrCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

@@ -11,7 +11,6 @@ public class Package {
     private int count;
 
     private Material material;
-    private Color color;
     private Size size;
     private boolean isEnded;
 
@@ -61,14 +60,6 @@ public class Package {
 
     public void setMaterial(Material material) {
         this.material = material;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public Size getSize() {

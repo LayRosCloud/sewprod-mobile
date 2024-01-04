@@ -14,8 +14,11 @@ public class Person {
     private Date birthDay;
     private String uid = "lk";
     private Date dateRegistration;
-
-
+    public Person(){}
+    public Person(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
     public String getEmail() {
         return email;
     }

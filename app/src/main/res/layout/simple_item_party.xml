@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/list_item_background">
-
-    <LinearLayout
+    android:minHeight="100sp"
+    android:orientation="vertical"
+    android:elevation="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginEnd="5dp"
+    app:layout_constraintStart_toStartOf="parent"
+    android:background="@drawable/list_item_background"
+    app:layout_constraintTop_toTopOf="parent"
+    >
+    <TextView
+        android:id="@+id/shortName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Уник. инд"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
-        <TextView
-            android:id="@+id/shortName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Уник. инд"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+        />
 
-        <TextView
-            android:id="@+id/tvModel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:text="модель"
-            />
+    <TextView
+        android:id="@+id/tvModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="модель"
+        />
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="время"
-            />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="время"
+        />
+</LinearLayout>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>

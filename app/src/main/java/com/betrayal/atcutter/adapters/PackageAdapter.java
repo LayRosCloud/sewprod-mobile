@@ -40,14 +40,12 @@ public class PackageAdapter extends ArrayAdapter<Package> {
         TextView tvCount = (TextView) item.findViewById(R.id.tvCount);
         TextView tvMaterial = (TextView) item.findViewById(R.id.tvMaterial);
         TextView tvSize = (TextView) item.findViewById(R.id.tvSize);
-        TextView tvColor = (TextView) item.findViewById(R.id.tvColor);
 
         Package currentPackage = packages.get(position);
 
         tvCount.setText(String.valueOf(currentPackage.getCount()));
         tvMaterial.setText(currentPackage.getMaterial().getName());
         tvSize.setText(currentPackage.getSize().getName());
-        tvColor.setText(currentPackage.getColor().getName());
 
         return item;
     }

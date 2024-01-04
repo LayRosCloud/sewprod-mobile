@@ -46,7 +46,7 @@ public class PartyAdapter extends ArrayAdapter<Party> {
 
         Party currentParty = parties.get(position);
 
-        shortName.setText(String.format("%s.%d/%s", currentParty.getCutNumber(), currentParty.getDateStart().getMonth()+1,currentParty.getPerson().getUid()));
+        shortName.setText(String.format("%s/%s", currentParty.getCutNumber(),currentParty.getPerson().getUid()));
         model.setText(currentParty.getModel().getTitle());
         DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         date.setText(formatter.format(currentParty.getDateStart()));

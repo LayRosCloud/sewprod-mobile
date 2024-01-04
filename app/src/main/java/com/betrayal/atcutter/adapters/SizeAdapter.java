@@ -1,6 +1,5 @@
 package com.betrayal.atcutter.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.betrayal.atcutter.R;
-import com.betrayal.atcutter.models.Color;
 import com.betrayal.atcutter.models.Size;
 
 import java.util.List;

@@ -3,7 +3,13 @@ package com.betrayal.atcutter.callbacks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.models.Auth;
 import com.betrayal.atcutter.models.Person;
 import com.betrayal.atcutter.server.ServerConstants;
@@ -14,23 +20,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginCallback implements Callback<Auth> {
-    private final Context context;
-    public LoginCallback(Context context){
+    private final View context;
+    public LoginCallback(View context){
         this.context = context;
     }
 
     @Override
-    public void onResponse(Call<Auth> call, Response<Auth> response) {
+    public void onResponse(@NonNull Call<Auth> call, Response<Auth> response) {
         if(response.isSuccessful()){
             ServerConstants.User = response.body();
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            NavController controller = Navigation.findNavController(context);
+            controller.navigate(R.id.action_authFragment_to_partyFragment);
         }
     }
 
     @Override
-    public void onFailure(Call<Auth> call, Throwable t) {
+    public void onFailure(@NonNull Call<Auth> call, Throwable t) {
 
     }
 }

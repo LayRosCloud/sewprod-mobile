@@ -5,17 +5,18 @@
     android:layout_height="match_parent"
     tools:context="views.QrCodeFragment">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/camera"
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:importantForAccessibility="no"
         />
     <Button
         android:id="@+id/backToAuth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Вернуться"
+        android:layout_gravity="center_horizontal"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+
 
 </FrameLayout>
