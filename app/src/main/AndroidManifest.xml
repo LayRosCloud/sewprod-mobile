@@ -23,6 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".views.HubActivity"
+            android:exported="false"
+            android:label="@string/title_activity_hub" />
+        <activity
             android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>

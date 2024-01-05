@@ -22,27 +22,7 @@
         <action
             android:id="@+id/action_authFragment_to_qrCodeFragment"
             app:destination="@id/qrCodeFragment" />
-        <action
-            android:id="@+id/action_authFragment_to_partyFragment"
-            app:destination="@id/navigation" />
     </fragment>
-    <navigation android:id="@+id/navigation"
-        app:startDestination="@id/partyFragment">
-        <fragment
-            android:id="@+id/partyFragment"
-            android:name="com.betrayal.atcutter.views.PartyFragment"
-            android:label="fragment_party"
-            tools:layout="@layout/fragment_party">
-            <action
-                android:id="@+id/action_partyFragment_to_packageFragment"
-                app:destination="@id/packageFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/packageFragment"
-            android:name="com.betrayal.atcutter.views.PackageFragment"
-            android:label="fragment_package"
-            tools:layout="@layout/fragment_package" />
-    </navigation>
     <fragment
         android:id="@+id/checkoutNetworkFragment"
         android:name="com.betrayal.atcutter.views.CheckoutNetworkFragment"

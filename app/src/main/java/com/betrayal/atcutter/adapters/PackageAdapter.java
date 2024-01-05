@@ -22,12 +22,12 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 
     private final int SIMPLE_PACKAGE_ID;
     public PackageAdapter(@NonNull Context context, @NonNull List<Package> packages) {
-        super(context, R.layout.simple_item_package, packages);
+        super(context, R.layout.pack_item_list, packages);
 
         this.context = context;
         this.packages = packages;
 
-        SIMPLE_PACKAGE_ID = R.layout.simple_item_package;
+        SIMPLE_PACKAGE_ID = 1;
     }
 
     @SuppressLint("DefaultLocale")
@@ -37,15 +37,15 @@ public class PackageAdapter extends ArrayAdapter<Package> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item = inflater.inflate(SIMPLE_PACKAGE_ID, parent, false);
 
-        TextView tvCount = (TextView) item.findViewById(R.id.tvCount);
-        TextView tvMaterial = (TextView) item.findViewById(R.id.tvMaterial);
-        TextView tvSize = (TextView) item.findViewById(R.id.tvSize);
+        //TextView tvCount = (TextView) item.findViewById(R.id.tvCount);
+        //TextView tvMaterial = (TextView) item.findViewById(R.id.tvMaterial);
+        //TextView tvSize = (TextView) item.findViewById(R.id.tvSize);
 
         Package currentPackage = packages.get(position);
 
-        tvCount.setText(String.valueOf(currentPackage.getCount()));
-        tvMaterial.setText(currentPackage.getMaterial().getName());
-        tvSize.setText(currentPackage.getSize().getName());
+        //tvCount.setText(String.valueOf(currentPackage.getCount()));
+        //tvMaterial.setText(currentPackage.getMaterial().getName());
+        //tvSize.setText(currentPackage.getSize().getName());
 
         return item;
     }

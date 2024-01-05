@@ -77,7 +77,7 @@ public class AuthFragment extends Fragment {
 
         Call<Auth> authCall = repository.login(person);
 
-        Callback<Auth> callback = new LoginCallback(binding.getRoot());
+        Callback<Auth> callback = new LoginCallback(getContext());
 
         authCall.enqueue(callback);
     }

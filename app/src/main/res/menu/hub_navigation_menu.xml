@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_cutter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="выкройки"
+        android:icon="@drawable/ic_added"/>
+    <item
+        android:id="@+id/navigation_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="профиль"
+        android:icon="@drawable/ic_people"/>
+</menu>
