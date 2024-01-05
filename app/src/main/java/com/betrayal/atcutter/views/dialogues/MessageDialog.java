@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 
 import com.betrayal.atcutter.R;
 
+import java.util.Objects;
+
 public class MessageDialog extends Dialog {
     public MessageDialog(@NonNull Context context, String title, String message) {
         super(context);
@@ -20,7 +22,7 @@ public class MessageDialog extends Dialog {
 
     private void initialize(String title, String message){
         setContentView(R.layout.message_box);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCancelable(true);
         TextView titleView = findViewById(R.id.title);
         TextView description = findViewById(R.id.description);

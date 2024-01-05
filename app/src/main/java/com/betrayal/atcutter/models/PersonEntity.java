@@ -2,10 +2,7 @@ package com.betrayal.atcutter.models;
 
 import java.util.Date;
 
-import retrofit2.Call;
-
-public class Person {
-    private int id;
+public class PersonEntity extends Entity {
     private String email;
     private String password;
     private String lastName;
@@ -14,8 +11,8 @@ public class Person {
     private Date birthDay;
     private String uid = "lk";
     private Date dateRegistration;
-    public Person(){}
-    public Person(String email, String password){
+    public PersonEntity(){}
+    public PersonEntity(String email, String password){
         this.email = email;
         this.password = password;
     }
@@ -25,14 +22,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPassword() {

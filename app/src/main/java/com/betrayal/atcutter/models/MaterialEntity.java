@@ -1,7 +1,6 @@
 package com.betrayal.atcutter.models;
 
-public class Material {
-    private int id;
+public class MaterialEntity extends Entity {
     private String name;
     private String description;
     private String uid;
@@ -21,14 +20,6 @@ public class Material {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUid() {

@@ -1,7 +1,6 @@
 package com.betrayal.atcutter.views;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.betrayal.atcutter.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,21 +34,17 @@ public class HubActivity extends AppCompatActivity {
         BottomNavigationView view = binding.bottomNavView;
 
         view.setOnNavigationItemSelectedListener(item -> {
-            //Log.d("bottom_nav_log", String.valueOf(item.getItemId()));
             Fragment fragment = fragmentMap.get(item.getItemId());
             loadFragment(fragment);
             return true;
         });
     }
-    private void loadFragment(Fragment fragment){
-        loadFragment(fragment, true);
-    }
 
-    private void loadFragment(Fragment fragment, boolean applicationInitialized){
+    private void loadFragment(Fragment fragment){
         FragmentManager manager = getSupportFragmentManager();
         manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragment_hub,fragment);
+        transaction.replace(R.id.fragment_hub, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
