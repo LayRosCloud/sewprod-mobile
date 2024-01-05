@@ -4,8 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-public class Party {
-    private int id;
+public class PartyEntity extends Entity {
     private int modelId;
     private int personId;
     private int count;
@@ -15,21 +14,11 @@ public class Party {
     private int sizeId;
     private String cutNumber;
 
-    private Person person;
-    private Model model;
-    public Party() {
+    private PersonEntity person;
+    private ModelEntity model;
+    public PartyEntity() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        if(id < 0){
-            throw new IllegalArgumentException();
-        }
-        this.id = id;
-    }
 
     public int getModelId() {
         return modelId;
@@ -99,11 +88,11 @@ public class Party {
         this.sizeId = sizeId;
     }
 
-    public Person getPerson() {
+    public PersonEntity getPerson() {
         return person;
     }
 
-    public void setPerson(@NonNull Person person) {
+    public void setPerson(@NonNull PersonEntity person) {
         this.person = person;
     }
 
@@ -115,11 +104,11 @@ public class Party {
         this.cutNumber = cutNumber;
     }
 
-    public Model getModel() {
+    public ModelEntity getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(ModelEntity model) {
         this.model = model;
     }
 }

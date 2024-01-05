@@ -1,11 +1,9 @@
 package com.betrayal.atcutter.server;
 
-import com.betrayal.atcutter.server.repositories.Repository;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HttpBuilder {
+public final class HttpBuilder {
     private final Retrofit retrofit;
 
     public HttpBuilder(){
@@ -19,7 +17,11 @@ public class HttpBuilder {
         return retrofit;
     }
 
-    public <TRepository extends Repository> TRepository createService(Class<TRepository> owner){
+    public <TRepository> TRepository createService(Class<TRepository> owner){
         return retrofit.create(owner);
+    }
+
+    public String getAuthorizationHeader(){
+        return "Bearer " + ServerConstants.User.getToken();
     }
 }

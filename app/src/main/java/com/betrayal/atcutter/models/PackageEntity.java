@@ -1,26 +1,21 @@
 package com.betrayal.atcutter.models;
 
-public class Package {
-    private int id;
+public class PackageEntity extends Entity {
     private int materialId;
     private int partyId;
     private int sizeId;
-    private int colorId;
     private int personId;
-    private String uid;
     private int count;
 
-    private Material material;
-    private Size size;
     private boolean isEnded;
+    private boolean isUpdated;
+    private boolean isRepeated;
 
-    public int getId() {
-        return id;
-    }
+    private MaterialEntity material;
+    private PartyEntity party;
+    private SizeEntity size;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public int getMaterialId() {
         return materialId;
@@ -38,14 +33,6 @@ public class Package {
         this.sizeId = sizeId;
     }
 
-    public int getColorId() {
-        return colorId;
-    }
-
-    public void setColorId(int colorId) {
-        this.colorId = colorId;
-    }
-
     public int getCount() {
         return count;
     }
@@ -54,19 +41,19 @@ public class Package {
         this.count = count;
     }
 
-    public Material getMaterial() {
+    public MaterialEntity getMaterial() {
         return material;
     }
 
-    public void setMaterial(Material material) {
+    public void setMaterial(MaterialEntity material) {
         this.material = material;
     }
 
-    public Size getSize() {
+    public SizeEntity getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(SizeEntity size) {
         this.size = size;
     }
 
@@ -94,11 +81,27 @@ public class Package {
         this.personId = personId;
     }
 
-    public String getUid() {
-        return uid;
+    public PartyEntity getParty() {
+        return party;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setParty(PartyEntity party) {
+        this.party = party;
+    }
+
+    public boolean isUpdated() {
+        return isUpdated;
+    }
+
+    public void setUpdated(boolean updated) {
+        isUpdated = updated;
+    }
+
+    public boolean isRepeated() {
+        return isRepeated;
+    }
+
+    public void setRepeated(boolean repeated) {
+        isRepeated = repeated;
     }
 }

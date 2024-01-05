@@ -1,6 +1,6 @@
 package com.betrayal.atcutter.models;
 
-public class SuccessDelete {
+public class SuccessDeletedOperation {
     private int status;
     private String message;
 

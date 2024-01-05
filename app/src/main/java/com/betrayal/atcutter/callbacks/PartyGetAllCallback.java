@@ -1,49 +1,33 @@
 package com.betrayal.atcutter.callbacks;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import com.betrayal.atcutter.models.PartyEntity;
+import com.betrayal.atcutter.scripts.ExceptionConstants;
 
-import com.betrayal.atcutter.adapters.PartyAdapter;
-import com.betrayal.atcutter.models.Party;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PartyGetAllCallback implements Callback<List<Party>> {
-    private final GridView gridView;
-    private final Context context;
-    public PartyGetAllCallback(@NonNull Context context,@NonNull GridView gridView){
-        this.gridView = gridView;
-        this.context = context;
+public class PartyGetAllCallback extends CallbackWrapper<List<PartyEntity>>{
+    private InsideCallback<List<PartyEntity>> callback;
+
+    public PartyGetAllCallback(Context context) {
+        super(context);
+        showLoadingDialog();
+    }
+
+    public void subscribe(InsideCallback<List<PartyEntity>> callback){
+        this.callback = callback;
+    }
+    @Override
+    protected void successResponse(Response<List<PartyEntity>> item) {
+        final List<PartyEntity> partyList = item.body();
+        callback.success(partyList);
     }
 
     @Override
-    public void onResponse(Call<List<Party>> call, Response<List<Party>> response) {
-        if(response.isSuccessful()){
-            ArrayAdapter<Party> adapter = new PartyAdapter(context, response.body());
-            gridView.setAdapter(adapter);
-        }
-        else {
-            try {
-                Log.d("ERROR_REQUEST", response.errorBody().string());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @Override
-    public void onFailure(Call<List<Party>> call, Throwable t) {
-        Log.d("ERROR_REQUEST", t.getMessage());
+    protected String getErrorMessage() {
+        return ExceptionConstants.EXCEPTION_NETWORK;
     }
 }

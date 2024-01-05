@@ -12,22 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.betrayal.atcutter.R;
-import com.betrayal.atcutter.models.Package;
+import com.betrayal.atcutter.models.PackageEntity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class PackageAdapter extends ArrayAdapter<Package> {
+public class PackageAdapter extends ArrayAdapter<PackageEntity> {
     private final Context context;
-    private final List<Package> packages;
+    private final List<PackageEntity> packages;
 
     private final int SIMPLE_PACKAGE_ID;
-    public PackageAdapter(@NonNull Context context, @NonNull List<Package> packages) {
-        super(context, R.layout.simple_item_package, packages);
+    public PackageAdapter(@NonNull Context context, @NonNull List<PackageEntity> packages) {
+        super(context, R.layout.pack_item_list, packages);
 
         this.context = context;
         this.packages = packages;
 
-        SIMPLE_PACKAGE_ID = R.layout.simple_item_package;
+        SIMPLE_PACKAGE_ID = R.layout.pack_item_list;
     }
 
     @SuppressLint("DefaultLocale")
@@ -37,16 +39,25 @@ public class PackageAdapter extends ArrayAdapter<Package> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item = inflater.inflate(SIMPLE_PACKAGE_ID, parent, false);
 
-        TextView tvCount = (TextView) item.findViewById(R.id.tvCount);
-        TextView tvMaterial = (TextView) item.findViewById(R.id.tvMaterial);
-        TextView tvSize = (TextView) item.findViewById(R.id.tvSize);
+        TextView cutterNumber = item.findViewById(R.id.cutter_number);
+        TextView cutterDate = item.findViewById(R.id.date_cutter);
+        TextView size = item.findViewById(R.id.size);
+        TextView categoryOfSize = item.findViewById(R.id.category_size);
 
-        Package currentPackage = packages.get(position);
+        PackageEntity currentPackage = packages.get(position);
 
-        tvCount.setText(String.valueOf(currentPackage.getCount()));
-        tvMaterial.setText(currentPackage.getMaterial().getName());
-        tvSize.setText(currentPackage.getSize().getName());
+        String formattedCutterNumber =
+                String.format("%s/%s", currentPackage.getParty().getCutNumber(),
+                        currentPackage.getParty().getPerson().getUid());
+        cutterNumber.setText(formattedCutterNumber);
 
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        String formattingDate = dateFormat.format(currentPackage.getParty().getDateStart());
+        cutterDate.setText(formattingDate);
+
+        size.setText(currentPackage.getSize().getNumber());
+        categoryOfSize.setText(currentPackage.getSize().getAge().getName());
         return item;
     }
 }

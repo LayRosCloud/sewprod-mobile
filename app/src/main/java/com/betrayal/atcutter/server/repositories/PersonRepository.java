@@ -1,7 +1,7 @@
 package com.betrayal.atcutter.server.repositories;
 
-import com.betrayal.atcutter.models.Auth;
-import com.betrayal.atcutter.models.Person;
+import com.betrayal.atcutter.models.SecuritySuccessfulEntity;
+import com.betrayal.atcutter.models.PersonEntity;
 
 import java.util.List;
 
@@ -11,16 +11,16 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface PersonRepository extends Repository{
+public interface PersonRepository {
     @GET("/v1/persons")
-    Call<List<Person>> getAll();
+    Call<List<PersonEntity>> getAll();
 
     @GET("/v1/persons/{id}")
-    Call<Person> get(@Path("id") int id);
+    Call<PersonEntity> get(@Path("id") int id);
 
     @POST("/v1/persons/")
-    Call<Person> register(@Body() Person person);
+    Call<PersonEntity> register(@Body() PersonEntity person);
 
     @POST("/v1/auth/")
-    Call<Auth> login(@Body() Person person);
+    Call<SecuritySuccessfulEntity> login(@Body() PersonEntity person);
 }

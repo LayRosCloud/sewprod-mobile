@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
 
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;

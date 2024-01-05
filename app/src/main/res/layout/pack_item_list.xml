@@ -3,56 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="3dp"
     android:background="@drawable/list_item_background"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvSize"
+            android:id="@+id/cutter_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="размер"
-            android:textSize="25sp"
+            android:text="крой"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvCount"
+            android:id="@+id/date_cutter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="кол-во" />
+            android:text="Дата кроя" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/tvMaterial"
+            android:id="@+id/size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Материал"
-            />
-
+            android:text="44-46"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvColor"
+            android:id="@+id/category_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Цвет"
-            />
+            android:text="Выкройка" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

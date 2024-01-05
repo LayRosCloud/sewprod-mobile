@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.callbacks.LoginCallback;
 import com.betrayal.atcutter.databinding.FragmentAuthBinding;
-import com.betrayal.atcutter.models.Auth;
-import com.betrayal.atcutter.models.Person;
+import com.betrayal.atcutter.models.SecuritySuccessfulEntity;
+import com.betrayal.atcutter.models.PersonEntity;
 import com.betrayal.atcutter.scripts.QrCodeRunnable;
 import com.betrayal.atcutter.server.HttpBuilder;
 import com.betrayal.atcutter.server.repositories.PersonRepository;
@@ -66,18 +66,18 @@ public class AuthFragment extends Fragment {
         final String email = etEmail.getText().toString();
         final String password = etPassword.getText().toString();
 
-        Person person = new Person(email, password);
+        PersonEntity person = new PersonEntity(email, password);
 
         sendRequestOnAuth(person);
     }
 
-    private void sendRequestOnAuth(Person person){
+    private void sendRequestOnAuth(PersonEntity person){
         HttpBuilder httpBuilder = new HttpBuilder();
         PersonRepository repository = httpBuilder.createService(PersonRepository.class);
 
-        Call<Auth> authCall = repository.login(person);
+        Call<SecuritySuccessfulEntity> authCall = repository.login(person);
 
-        Callback<Auth> callback = new LoginCallback(binding.getRoot());
+        Callback<SecuritySuccessfulEntity> callback = new LoginCallback(getContext());
 
         authCall.enqueue(callback);
     }

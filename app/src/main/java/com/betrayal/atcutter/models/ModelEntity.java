@@ -1,19 +1,10 @@
 package com.betrayal.atcutter.models;
 
-public class Model {
-    private int id;
+public class ModelEntity extends Entity {
     private String title = "Треники";
     private String description;
     private String codeVendor;
     private int percent;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

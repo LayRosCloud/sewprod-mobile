@@ -1,26 +1,9 @@
 package com.betrayal.atcutter.models;
 
-public class Size {
-    private int id;
-    private String name;
+public class SizeEntity extends Entity {
     private String number;
     private int ageId;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private AgeEntity age;
 
     public String getNumber() {
         return number;
@@ -36,5 +19,13 @@ public class Size {
 
     public void setAgeId(int ageId) {
         this.ageId = ageId;
+    }
+
+    public AgeEntity getAge() {
+        return age;
+    }
+
+    public void setAge(AgeEntity age) {
+        this.age = age;
     }
 }
