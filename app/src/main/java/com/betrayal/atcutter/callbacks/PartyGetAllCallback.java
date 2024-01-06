@@ -23,7 +23,9 @@ public class PartyGetAllCallback extends CallbackWrapper<List<PartyEntity>>{
     @Override
     protected void successResponse(Response<List<PartyEntity>> item) {
         final List<PartyEntity> partyList = item.body();
-        callback.success(partyList);
+        if(callback != null){
+            callback.success(partyList);
+        }
     }
 
     @Override
