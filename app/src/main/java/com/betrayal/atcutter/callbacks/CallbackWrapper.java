@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.betrayal.atcutter.views.dialogues.LoadingDialog;
 import com.betrayal.atcutter.views.dialogues.MessageDialog;
 
@@ -18,7 +20,7 @@ public abstract class CallbackWrapper<T> implements Callback<T> {
     protected Context context;
     private final Dialog loadingDialog;
     private boolean canDisableLoadingDialog = true;
-    public CallbackWrapper(Context context){
+    public CallbackWrapper(@NonNull Context context){
         this.context = context;
         loadingDialog = new LoadingDialog(context);
 

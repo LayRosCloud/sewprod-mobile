@@ -2,6 +2,8 @@ package com.betrayal.atcutter.callbacks;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.betrayal.atcutter.models.PartyEntity;
 import com.betrayal.atcutter.scripts.ExceptionConstants;
 
@@ -12,7 +14,7 @@ import retrofit2.Response;
 public class PartyGetAllCallback extends CallbackWrapper<List<PartyEntity>>{
     private InsideCallback<List<PartyEntity>> callback;
 
-    public PartyGetAllCallback(Context context) {
+    public PartyGetAllCallback(@NonNull Context context) {
         super(context);
         showLoadingDialog();
     }

@@ -2,6 +2,8 @@ package com.betrayal.atcutter.callbacks;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.betrayal.atcutter.models.PersonEntity;
 import com.betrayal.atcutter.scripts.ExceptionConstants;
 import com.betrayal.atcutter.scripts.ProfileHandler;
@@ -10,7 +12,7 @@ import retrofit2.Response;
 
 public class ProfileCallback extends CallbackWrapper<PersonEntity>{
     private final ProfileHandler handler;
-    public ProfileCallback(Context context, ProfileHandler handler) {
+    public ProfileCallback(@NonNull Context context, ProfileHandler handler) {
         super(context);
         this.handler = handler;
         showLoadingDialog();

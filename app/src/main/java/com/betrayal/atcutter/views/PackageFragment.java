@@ -3,12 +3,15 @@ package com.betrayal.atcutter.views;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.callbacks.PackageGetAllCallback;
 import com.betrayal.atcutter.databinding.FragmentPackageBinding;
 import com.betrayal.atcutter.models.PackageEntity;
@@ -35,7 +38,10 @@ public class PackageFragment extends Fragment {
         final Callback<List<PackageEntity>> callback = new PackageGetAllCallback(getContext(), packageList);
 
         packageCall.enqueue(callback);
-
+        binding.navigationButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(binding.getRoot());
+            navController.navigate(R.id.action_packageFragment_to_packageHandlerFragment);
+        });
         return binding.getRoot();
     }
 }
