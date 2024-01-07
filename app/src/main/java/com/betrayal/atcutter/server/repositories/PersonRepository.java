@@ -16,9 +16,6 @@ public interface PersonRepository {
     @GET("/v1/persons/{id}")
     Call<PersonEntity> get(@Path("id") int id, @Header("Authorization") String authorization);
 
-    @POST("/v1/persons/")
-    Call<PersonEntity> register(@Body() PersonEntity person);
-
     @POST("/v1/auth/")
     Call<SecuritySuccessfulEntity> login(@Body() PersonEntity person);
 }

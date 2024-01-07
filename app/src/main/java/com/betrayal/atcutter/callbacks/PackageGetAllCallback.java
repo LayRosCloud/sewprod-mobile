@@ -36,9 +36,11 @@ public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> 
         final PartyRepository repository = httpBuilder.createService(PartyRepository.class);
         final Call<List<PartyEntity>> packageCall = repository.getAll(httpBuilder.getAuthorizationHeader());
         final PartyGetAllCallback callback = new PartyGetAllCallback(context);
+
         callback.subscribe(partyList -> {
             initialPartyItemOnEveryPackage(partyList, packages);
         });
+
         packageCall.enqueue(callback);
     }
 

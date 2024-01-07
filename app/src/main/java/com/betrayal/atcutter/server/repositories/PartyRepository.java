@@ -13,7 +13,4 @@ import retrofit2.http.POST;
 public interface PartyRepository {
     @GET("/v1/parties/")
     Call<List<PartyEntity>> getAll(@Header("Authorization") String authorization);
-
-    @POST("/v1/parties/")
-    Call<PartyEntity> create(@Body() PartyEntity party, @Header("Authorization") String authorization);
 }

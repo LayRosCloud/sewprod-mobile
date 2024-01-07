@@ -13,6 +13,4 @@ public interface MaterialRepository {
     @GET("/v1/materials/")
     Call<List<MaterialEntity>> getAll(@Header("Authorization") String authorization);
 
-    @GET("/v1/materials/{id}")
-    Call<MaterialEntity> get(@Path("id") int id, @Header("Authorization") String authorization);
 }

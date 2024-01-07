@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.PackageHandlerFragment"/>
+    android:background="@color/light_white"
+    tools:context=".views.PackageHandlerFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="добавление выкроек"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="выберите крой"
+            android:textStyle="bold"
+            />
+        <Spinner
+            android:id="@+id/parties"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_item_background"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="выберите размер"
+            android:textStyle="bold"
+            />
+        <Spinner
+            android:id="@+id/sizes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_item_background"
+            />
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="введите количество"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="выберите материал"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    />
+            </TableRow>
+            <TableRow
+                android:id="@+id/table_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
+                <EditText
+                    android:id="@+id/counter"
+                    android:background="@drawable/list_item_background"
+                    android:hint="введите количество"
+                    android:layout_weight="0.8"
+                    android:inputType="number"
+                    />
+                <Spinner
+                    android:id="@+id/materials"
+                    android:background="@drawable/list_item_background"
+                    android:layout_weight="1"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
+                <Button
+                    android:id="@+id/added_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="добавить"
+                    />
+            </TableRow>
+        </TableLayout>
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="сохранить"
+            />
+    </LinearLayout>
+
+</ScrollView>

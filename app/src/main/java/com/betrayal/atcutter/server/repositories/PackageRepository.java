@@ -27,6 +27,8 @@ public interface PackageRepository {
 
     @POST("/v1/packages/")
     Call<PackageEntity> create(@Body() PackageEntity packageEntity, @Header("Authorization") String authorization);
+    @POST("/v1/packages/range")
+    Call<List<PackageEntity>> createRange(@Body() List<PackageEntity> packageEntity, @Header("Authorization") String authorization);
 
     @PUT("/v1/packages/{id}")
     Call<PackageEntity> update(@Path("id") int id, @Body() PackageEntity party, @Header("Authorization") String authorization);

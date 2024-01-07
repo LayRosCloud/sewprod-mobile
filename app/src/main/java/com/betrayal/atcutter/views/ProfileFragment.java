@@ -39,7 +39,7 @@ public class ProfileFragment extends Fragment {
         HttpBuilder httpBuilder = new HttpBuilder();
         PersonRepository repository = httpBuilder.createService(PersonRepository.class);
         Callback<PersonEntity> personCallback = new ProfileCallback(getContext(), handler);
-        Call<PersonEntity> personCall = repository.get(ServerConstants.User.getId(), httpBuilder.getAuthorizationHeader());
+        Call<PersonEntity> personCall = repository.get(ServerConstants.CurrentUser.getId(), httpBuilder.getAuthorizationHeader());
         personCall.enqueue(personCallback);
 
         return binding.getRoot();

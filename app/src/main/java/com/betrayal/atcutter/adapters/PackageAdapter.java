@@ -20,14 +20,11 @@ import java.util.List;
 
 public class PackageAdapter extends ArrayAdapter<PackageEntity> {
     private final Context context;
-    private final List<PackageEntity> packages;
-
     private final int SIMPLE_PACKAGE_ID;
     public PackageAdapter(@NonNull Context context, @NonNull List<PackageEntity> packages) {
         super(context, R.layout.pack_item_list, packages);
 
         this.context = context;
-        this.packages = packages;
 
         SIMPLE_PACKAGE_ID = R.layout.pack_item_list;
     }
@@ -44,7 +41,7 @@ public class PackageAdapter extends ArrayAdapter<PackageEntity> {
         TextView size = item.findViewById(R.id.size);
         TextView categoryOfSize = item.findViewById(R.id.category_size);
 
-        PackageEntity currentPackage = packages.get(position);
+        PackageEntity currentPackage = getItem(position);
 
         String formattedCutterNumber =
                 String.format("%s/%s", currentPackage.getParty().getCutNumber(),

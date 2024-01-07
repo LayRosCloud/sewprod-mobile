@@ -22,6 +22,6 @@ public final class HttpBuilder {
     }
 
     public String getAuthorizationHeader(){
-        return "Bearer " + ServerConstants.User.getToken();
+        return "Bearer " + ServerConstants.CurrentUser.getToken();
     }
 }

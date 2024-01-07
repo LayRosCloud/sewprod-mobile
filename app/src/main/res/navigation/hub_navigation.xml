@@ -8,10 +8,23 @@
     <fragment
         android:id="@+id/packageFragment"
         android:name="com.betrayal.atcutter.views.PackageFragment"
-        android:label="PackageFragment" />
+        android:label="PackageFragment" >
+        <action
+            android:id="@+id/action_packageFragment_to_packageHandlerFragment"
+            app:destination="@id/packageHandlerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.betrayal.atcutter.views.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/packageHandlerFragment"
+        android:name="com.betrayal.atcutter.views.PackageHandlerFragment"
+        android:label="fragment_package_handler"
+        tools:layout="@layout/fragment_package_handler" >
+        <action
+            android:id="@+id/action_packageHandlerFragment_to_packageFragment"
+            app:destination="@id/packageFragment" />
+    </fragment>
 </navigation>
