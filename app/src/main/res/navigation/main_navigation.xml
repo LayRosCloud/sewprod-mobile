@@ -31,5 +31,17 @@
         <action
             android:id="@+id/action_checkoutNetworkFragment_to_authFragment"
             app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_checkoutNetworkFragment_to_pincodeFragment"
+            app:destination="@id/pincodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pincodeFragment"
+        android:name="com.betrayal.atcutter.views.PincodeFragment"
+        android:label="fragment_pincode"
+        tools:layout="@layout/fragment_pincode" >
+        <action
+            android:id="@+id/action_pincodeFragment_to_authFragment"
+            app:destination="@id/authFragment" />
     </fragment>
 </navigation>

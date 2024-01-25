@@ -6,7 +6,10 @@
     <string name="auth_activity_enter">Войти</string>
     <string name="auth_activity_enter_qr">Войти по QR-коду</string>
     <string name="qr_activity_back">Авторизоваться по почте</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="finder">поиск…</string>
+    <string name="package_title">выкройки</string>
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_package">PackageActivity</string>
     <string name="title_activity_hub">HubActivity</string>
