@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.betrayal.atcutter.R;
@@ -36,8 +39,24 @@ public class PackageFragment extends Fragment {
         final PackageRepository repository = httpBuilder.createService(PackageRepository.class);
         final Call<List<PackageEntity>> packageCall = repository.getAll(httpBuilder.getAuthorizationHeader());
         final Callback<List<PackageEntity>> callback = new PackageGetAllCallback(getContext(), packageList);
-
         packageCall.enqueue(callback);
+        EditText search = binding.search;
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         binding.navigationButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(binding.getRoot());
             navController.navigate(R.id.action_packageFragment_to_packageHandlerFragment);

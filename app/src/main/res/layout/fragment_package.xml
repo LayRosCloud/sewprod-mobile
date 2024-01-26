@@ -17,11 +17,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="выкройки"
+            android:text="@string/package_title"
             android:textSize="30sp"
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -29,7 +30,9 @@
             android:drawableStart="@drawable/ic_search"
             android:drawableTint="@color/color_icon_text"
             android:elevation="10dp"
-            android:hint="поиск..." />
+            android:hint="@string/finder"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
 
         <ListView
@@ -51,6 +54,7 @@
         android:src="@drawable/ic_added"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:importantForAccessibility="no" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
