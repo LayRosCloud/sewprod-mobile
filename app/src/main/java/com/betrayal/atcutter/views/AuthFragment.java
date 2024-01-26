@@ -40,8 +40,10 @@ public class AuthFragment extends Fragment {
 
         Button btnEnter = binding.btnEnter;
         Button btnQrCode = binding.btnQrCode;
+
         etEmail = binding.etEmail;
         etPassword = binding.etPassword;
+
         Bundle arguments = getArguments();
 
         if(arguments != null){

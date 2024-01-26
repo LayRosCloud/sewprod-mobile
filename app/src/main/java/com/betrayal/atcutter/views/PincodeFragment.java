@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.betrayal.atcutter.R;
+import com.betrayal.atcutter.databinding.FragmentPincodeBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class PincodeFragment extends Fragment {
+    private FragmentPincodeBinding binding;
     private final StringBuilder pinCode;
     private final List<RadioButton> radioButtons;
     public PincodeFragment() {
@@ -28,7 +30,8 @@ public class PincodeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pincode, container, false);
+        binding = FragmentPincodeBinding.inflate(inflater);
+        View view = binding.getRoot();
         radioButtons.addAll(Arrays.asList(new RadioButton[]{
                 view.findViewById(R.id.firstLetter),
                 view.findViewById(R.id.secondLetter),
@@ -38,16 +41,8 @@ public class PincodeFragment extends Fragment {
         }));
 
         int[] ids = {
-                R.id.button1,
-                R.id.button2,
-                R.id.button3,
-                R.id.button4,
-                R.id.button5,
-                R.id.button6,
-                R.id.button7,
-                R.id.button8,
-                R.id.button9,
-                R.id.button0,
+                R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6,
+                R.id.button7, R.id.button8, R.id.button9, R.id.button0,
         };
 
         for (int id:

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_authFragment_to_qrCodeFragment"
             app:destination="@id/qrCodeFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_pinCodeSaveFragment"
+            app:destination="@id/pinCodeSaveFragment" />
     </fragment>
     <fragment
         android:id="@+id/checkoutNetworkFragment"
@@ -44,4 +47,9 @@
             android:id="@+id/action_pincodeFragment_to_authFragment"
             app:destination="@id/authFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pinCodeSaveFragment"
+        android:name="com.betrayal.atcutter.views.PinCodeSaveFragment"
+        android:label="fragment_pin_code_save"
+        tools:layout="@layout/fragment_pin_code_save" />
 </navigation>
