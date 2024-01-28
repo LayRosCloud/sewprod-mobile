@@ -15,6 +15,7 @@ import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.databinding.FragmentCheckoutNetworkBinding;
 import com.betrayal.atcutter.scripts.data.DatabaseHelper;
 import com.betrayal.atcutter.scripts.data.constants.DatabaseConstants;
+import com.betrayal.atcutter.scripts.services.UserRegister;
 
 public class CheckoutNetworkFragment extends Fragment {
 
@@ -33,10 +34,8 @@ public class CheckoutNetworkFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        //TODO: other class
-        DatabaseHelper helper = new DatabaseHelper(getContext());
-        SQLiteDatabase writableData = helper.getWritableDatabase();
-        writableData.execSQL(DatabaseConstants.ENSURE_CREATED);
+        UserRegister register = new UserRegister(getContext());
+        register.ensureCreated();
 
         NavController navController = Navigation.findNavController(binding.getRoot());
         navController.navigate(R.id.action_checkoutNetworkFragment_to_pincodeFragment);

@@ -10,13 +10,11 @@ import com.betrayal.atcutter.scripts.data.constants.DatabaseConstants;
 import java.util.List;
 
 public class UserRegister extends Service {
-    private final UserFinder finder;
     public UserRegister(Context context) {
         super(context);
-        finder = new UserFinder(context);
     }
 
-    public UserDataEntity register(UserDataEntity user){
+    public void register(UserDataEntity user){
         final int countParams = 3;
 
         SQLiteDatabase database = helper.getWritableDatabase();
@@ -30,9 +28,13 @@ public class UserRegister extends Service {
 
         database.insert(DatabaseConstants.TABLE_NAME, null, contentValues);
 
-        List<UserDataEntity> users = finder.findAll();
         database.endTransaction();
+        database.close();
+    }
 
-        return users.get(users.size() - 1);
+    public void ensureCreated(){
+        SQLiteDatabase writableData = helper.getWritableDatabase();
+        writableData.execSQL(DatabaseConstants.ENSURE_CREATED);
+        writableData.close();
     }
 }

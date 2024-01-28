@@ -23,8 +23,10 @@ import com.budiyev.android.codescanner.CodeScannerView;
 public class QrCodeFragment extends Fragment {
     private FragmentQrCodeBinding binding;
     private CodeScanner scanner;
-    private final String REQUEST_PERMISSION = "android.permission.CAMERA";
-    private final int REQUEST_CODE = 2_132;
+
+    private static final String REQUEST_PERMISSION = "android.permission.CAMERA";
+    private static final int REQUEST_CODE = 2_132;
+
     public QrCodeFragment() { }
 
     @Override

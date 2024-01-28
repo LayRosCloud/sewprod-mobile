@@ -13,31 +13,30 @@ import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.models.SecuritySuccessfulEntity;
 import com.betrayal.atcutter.scripts.ExceptionConstants;
 import com.betrayal.atcutter.server.ServerConstants;
+import com.betrayal.atcutter.views.AuthFragment;
 import com.betrayal.atcutter.views.HubActivity;
 
 import retrofit2.Response;
 
 public class LoginCallback extends CallbackWrapper<SecuritySuccessfulEntity> {
-    private final View view;
-    private final String email;
-    private final String password;
+    private InsideCallback<SecuritySuccessfulEntity> callback;
 
-    public LoginCallback(@NonNull View view, String email, String password){
-        super(view.getContext());
-        this.view = view;
-        this.email = email;
-        this.password = password;
+    public LoginCallback(Context context){
+        super(context);
         showLoadingDialog();
+    }
+
+    public void setCallback(InsideCallback<SecuritySuccessfulEntity> callback){
+        this.callback = callback;
     }
 
     @Override
     protected void successResponse(Response<SecuritySuccessfulEntity> item) {
         ServerConstants.CurrentUser = item.body();
-        Bundle args = new Bundle();
-        args.putString("EMAIL", email);
-        args.putString("EMAIL", password);
-        NavController controller = Navigation.findNavController(view);
-        controller.navigate(R.id.action_authFragment_to_pinCodeSaveFragment, args);
+        if(callback != null){
+            callback.success(item.body());
+        }
+
     }
 
     @Override

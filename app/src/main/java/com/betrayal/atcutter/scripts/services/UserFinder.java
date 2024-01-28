@@ -32,7 +32,7 @@ public class UserFinder extends Service {
         return users;
     }
 
-    public List<UserDataEntity> findByPinCode(String pinCode){
+    public UserDataEntity findByPinCode(String pinCode){
         SQLiteDatabase database = helper.getReadableDatabase();
         database.beginTransaction();
 
@@ -45,7 +45,7 @@ public class UserFinder extends Service {
         List<UserDataEntity> users = mapper.toListUser(cursor);
 
         database.endTransaction();
-
-        return users;
+        database.close();
+        return users.get(0);
     }
 }

@@ -30,10 +30,12 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater);
+
         TextView fullName = binding.fullName;
         TextView email = binding.email;
         TextView date = binding.registrationDate;
         TextView uid = binding.uid;
+
         ProfileHandler handler = new ProfileHandler(email, fullName, uid, date);
 
         HttpBuilder httpBuilder = new HttpBuilder();

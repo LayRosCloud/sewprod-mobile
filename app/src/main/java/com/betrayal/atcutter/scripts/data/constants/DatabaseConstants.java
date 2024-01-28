@@ -16,10 +16,16 @@ public interface DatabaseConstants {
 
     String SELECT_ALL = String.format("SELECT * FROM \"%s\";", TABLE_NAME);
     String SELECT_BY_PIN_CODE =
-            String.format("SELECT * FROM \"%s\" WHERE \"%s\"=?", TABLE_NAME, COLUMN_PIN_CODE);
-    String INSERT =
+            String.format("SELECT * FROM \"%s\" WHERE \"%s\"=? LIMIT 1", TABLE_NAME, COLUMN_PIN_CODE);
+//    String INSERT =
+//            String.format(
+//                    "INSERT INTO \"%s\"(\"%s\",\"%s\",\"%s\") VALUES (?,?,?);",
+//                    TABLE_NAME, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_PIN_CODE
+//            );
+
+    String TRUNCATE =
             String.format(
-                    "INSERT INTO \"%s\"(\"%s\",\"%s\",\"%s\") VALUES (?,?,?);",
-                    TABLE_NAME, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_PIN_CODE
+                    "TRUNCATE TABLE \"%s\"",
+                    TABLE_NAME
             );
 }

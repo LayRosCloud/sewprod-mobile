@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.betrayal.atcutter.R;
+import com.betrayal.atcutter.callbacks.InsideCallback;
 import com.betrayal.atcutter.callbacks.LoginCallback;
 import com.betrayal.atcutter.databinding.FragmentAuthBinding;
 import com.betrayal.atcutter.models.SecuritySuccessfulEntity;
@@ -30,6 +31,9 @@ public class AuthFragment extends Fragment {
     private FragmentAuthBinding binding;
     private EditText etEmail;
     private EditText etPassword;
+
+    public static final String EMAIL_KEY = "EMAIL";
+    public static final String PASSWORD_KEY = "PASSWORD";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -79,7 +83,19 @@ public class AuthFragment extends Fragment {
 
         Call<SecuritySuccessfulEntity> authCall = repository.login(person);
 
-        Callback<SecuritySuccessfulEntity> callback = new LoginCallback(getContext());
+        LoginCallback callback
+                = new LoginCallback(getContext());
+
+        callback.setCallback(item -> {
+            Bundle args = new Bundle();
+
+            args.putString(AuthFragment.EMAIL_KEY, person.getEmail());
+            args.putString(AuthFragment.PASSWORD_KEY, person.getPassword());
+
+            NavController controller = Navigation.findNavController(binding.getRoot());
+
+            controller.navigate(R.id.action_authFragment_to_pinCodeSaveFragment, args);
+        });
 
         authCall.enqueue(callback);
     }

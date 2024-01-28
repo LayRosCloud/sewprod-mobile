@@ -1,8 +1,10 @@
 package com.betrayal.atcutter.views;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,7 +17,9 @@ import android.widget.Button;
 import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.databinding.FragmentPinCodeSaveBinding;
 import com.betrayal.atcutter.models.UserDataEntity;
+import com.betrayal.atcutter.scripts.services.UserCleared;
 import com.betrayal.atcutter.scripts.services.UserRegister;
+import com.betrayal.atcutter.views.dialogues.MessageDialog;
 
 public class PinCodeSaveFragment extends Fragment {
 
@@ -32,7 +36,7 @@ public class PinCodeSaveFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPinCodeSaveBinding.inflate(inflater);
         View view = binding.getRoot();
@@ -43,10 +47,22 @@ public class PinCodeSaveFragment extends Fragment {
             throw new RuntimeException();
         }
 
-        email = getArguments().getString("EMAIL");
-        password = getArguments().getString("PASSWORD");
+        email = getArguments().getString(AuthFragment.EMAIL_KEY);
+        password = getArguments().getString(AuthFragment.PASSWORD_KEY);
 
-        Button[] buttons = {
+        Button[] buttons = receiveButtonArray();
+
+        for (Button button : buttons) {
+            button.setOnClickListener(this::clickNumber);
+        }
+
+        binding.getRoot();
+
+        return view;
+    }
+
+    private Button[] receiveButtonArray(){
+        return new Button[]{
                 binding.button1,
                 binding.button2,
                 binding.button3,
@@ -58,14 +74,6 @@ public class PinCodeSaveFragment extends Fragment {
                 binding.button9,
                 binding.button0
         };
-
-        for (Button button : buttons) {
-            button.setOnClickListener(this::clickNumber);
-        }
-
-        binding.getRoot();
-
-        return view;
     }
 
     private void clickNumber(View view){
@@ -75,36 +83,60 @@ public class PinCodeSaveFragment extends Fragment {
             return;
         }
 
-        boolean existsCharacters = addCharacter(button);
+        boolean isFullPinCodes = addCharacter(button.getText().toString());
 
-        if( existsCharacters
-            && firstPinCode.toString().equals(secondPinCode.toString())
-        ) {
-            UserRegister register = new UserRegister(getContext());
+        saveAndNavigateToHubActivity(isFullPinCodes);
+    }
 
-            register.register(
-                    UserDataEntity.builder()
+    private void saveAndNavigateToHubActivity(boolean isFullPinCodes){
+        boolean equalsPinCodes = firstPinCode.toString().equals(secondPinCode.toString());
+
+        if(isFullPinCodes && equalsPinCodes) {
+            save();
+
+            navigateToHubActivity();
+        }else if(isFullPinCodes) {
+            showError();
+        }
+    }
+
+    private void showError(){
+        final String message = "Пинкоды не совпадают!";
+        final String title = "Ошибка!";
+
+        Dialog messageBox = new MessageDialog(getContext(), title, message);
+        messageBox.show();
+    }
+
+    private void save(){
+        UserCleared cleared = new UserCleared(getContext());
+        UserRegister register = new UserRegister(getContext());
+
+        cleared.truncate();
+
+        register.register(
+                UserDataEntity.builder()
                         .setPinCode(firstPinCode.toString())
                         .setEmail(email)
                         .setPassword(password)
                         .build()
-            );
-
-
-            Intent intent = new Intent(getContext(), HubActivity.class);
-            startActivity(intent);
-        }
+        );
     }
 
-    private boolean addCharacter(Button pressedButton){
+    private void navigateToHubActivity(){
+        Intent intent = new Intent(getContext(), HubActivity.class);
+        startActivity(intent);
+    }
+
+    private boolean addCharacter(String character){
         boolean isFullFirstPinCode = firstPinCode.length() < 5;
         boolean isFullSecondPinCode = secondPinCode.length() < 5;
 
         if(isFullFirstPinCode) {
-            firstPinCode.append(pressedButton.getText().toString());
+            firstPinCode.append(character);
         } else if (isFullSecondPinCode) {
             binding.title.setText("Повторите пин-код");
-            secondPinCode.append(pressedButton.getText().toString());
+            secondPinCode.append(character);
         }
 
         return isFullFirstPinCode && isFullSecondPinCode;
