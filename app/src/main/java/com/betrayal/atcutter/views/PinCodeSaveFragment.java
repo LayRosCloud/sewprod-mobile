@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.databinding.FragmentPinCodeSaveBinding;
@@ -30,6 +31,8 @@ public class PinCodeSaveFragment extends Fragment {
     private String email;
     private String password;
 
+    RadioButton[] radioButtons;
+
     public PinCodeSaveFragment() {
         firstPinCode = new StringBuilder();
         secondPinCode = new StringBuilder();
@@ -40,6 +43,14 @@ public class PinCodeSaveFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentPinCodeSaveBinding.inflate(inflater);
         View view = binding.getRoot();
+
+        radioButtons = new RadioButton[]{
+                binding.firstLetter,
+                binding.secondLetter,
+                binding.thirdLetter,
+                binding.fourthLetter,
+                binding.fiveLetter,
+        };
 
         assert getArguments() != null;
 
@@ -83,19 +94,19 @@ public class PinCodeSaveFragment extends Fragment {
             return;
         }
 
-        boolean isFullPinCodes = addCharacter(button.getText().toString());
+        boolean isNotFullPinCodes = addCharacter(button.getText().toString());
 
-        saveAndNavigateToHubActivity(isFullPinCodes);
+        saveAndNavigateToHubActivity(isNotFullPinCodes);
     }
 
-    private void saveAndNavigateToHubActivity(boolean isFullPinCodes){
+    private void saveAndNavigateToHubActivity(boolean isNotFullPinCodes){
         boolean equalsPinCodes = firstPinCode.toString().equals(secondPinCode.toString());
 
-        if(isFullPinCodes && equalsPinCodes) {
-            save();
+        if(firstPinCode.length() == 5 && secondPinCode.length() == 5 && equalsPinCodes) {
+            save(firstPinCode.toString());
 
             navigateToHubActivity();
-        }else if(isFullPinCodes) {
+        }else if(firstPinCode.length() == 5 && secondPinCode.length() == 5) {
             showError();
         }
     }
@@ -108,15 +119,15 @@ public class PinCodeSaveFragment extends Fragment {
         messageBox.show();
     }
 
-    private void save(){
-        UserCleared cleared = new UserCleared(getContext());
+    private void save(String pinCode){
+        //UserCleared cleared = new UserCleared(getContext());
         UserRegister register = new UserRegister(getContext());
 
-        cleared.truncate();
+        //cleared.truncate();
 
         register.register(
                 UserDataEntity.builder()
-                        .setPinCode(firstPinCode.toString())
+                        .setPinCode(pinCode)
                         .setEmail(email)
                         .setPassword(password)
                         .build()
@@ -129,16 +140,32 @@ public class PinCodeSaveFragment extends Fragment {
     }
 
     private boolean addCharacter(String character){
-        boolean isFullFirstPinCode = firstPinCode.length() < 5;
-        boolean isFullSecondPinCode = secondPinCode.length() < 5;
+        boolean isNotFullFirstPinCode = firstPinCode.length() < 5;
+        boolean isNotFullSecondPinCode = secondPinCode.length() < 5;
 
-        if(isFullFirstPinCode) {
+        if(isNotFullFirstPinCode) {
             firstPinCode.append(character);
-        } else if (isFullSecondPinCode) {
-            binding.title.setText("Повторите пин-код");
+            refreshPoints(firstPinCode.toString());
+        } else if (isNotFullSecondPinCode) {
             secondPinCode.append(character);
+            refreshPoints(secondPinCode.toString());
         }
 
-        return isFullFirstPinCode && isFullSecondPinCode;
+        if(firstPinCode.length() >= 5){
+            binding.title.setText("Повторите пин-код");
+        }
+
+        return isNotFullFirstPinCode && isNotFullSecondPinCode;
+    }
+
+    private void refreshPoints(String text){
+        for(RadioButton button: radioButtons){
+            button.setChecked(false);
+        }
+        if(text.length() != 5){
+            for (int i = 0; i < text.length(); i++) {
+                radioButtons[i].setChecked(true);
+            }
+        }
     }
 }

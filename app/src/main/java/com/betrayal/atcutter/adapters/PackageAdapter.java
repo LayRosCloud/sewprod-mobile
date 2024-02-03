@@ -2,6 +2,7 @@ package com.betrayal.atcutter.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.betrayal.atcutter.R;
 import com.betrayal.atcutter.models.PackageEntity;
+import com.betrayal.atcutter.scripts.model.GroupPackage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 public class PackageAdapter extends ArrayAdapter<PackageEntity> {
     private final Context context;
     private final int SIMPLE_PACKAGE_ID;
+
     public PackageAdapter(@NonNull Context context, @NonNull List<PackageEntity> packages) {
         super(context, R.layout.pack_item_list, packages);
 
