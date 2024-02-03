@@ -1,5 +1,7 @@
 package com.betrayal.atcutter.views;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -24,6 +26,7 @@ import com.betrayal.atcutter.models.UserDataEntity;
 import com.betrayal.atcutter.scripts.services.UserFinder;
 import com.betrayal.atcutter.server.HttpBuilder;
 import com.betrayal.atcutter.server.repositories.PersonRepository;
+import com.betrayal.atcutter.views.dialogues.MessageDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,26 +84,31 @@ public class PincodeFragment extends Fragment {
         refresh();
 
         if (pinCode.length() == COUNT_CELLS){
-            UserFinder finder = new UserFinder(getContext());
-            UserDataEntity data = finder.findByPinCode(pinCode.toString());
+            try{
+                UserFinder finder = new UserFinder(getContext());
+                UserDataEntity data = finder.findByPinCode(pinCode.toString());
 
-            PersonEntity person = new PersonEntity(data.getEmail(), data.getPassword());
+                PersonEntity person = new PersonEntity(data.getEmail(), data.getPassword());
 
 
-            HttpBuilder httpBuilder = new HttpBuilder();
-            PersonRepository repository = httpBuilder.createService(PersonRepository.class);
+                HttpBuilder httpBuilder = new HttpBuilder();
+                PersonRepository repository = httpBuilder.createService(PersonRepository.class);
 
-            Call<SecuritySuccessfulEntity> authCall = repository.login(person);
+                Call<SecuritySuccessfulEntity> authCall = repository.login(person);
 
-            LoginCallback callback
-                    = new LoginCallback(getContext());
+                LoginCallback callback
+                        = new LoginCallback(getContext());
 
-            callback.setCallback(item -> {
-                Intent intent = new Intent(getContext(), HubActivity.class);
-                startActivity(intent);
-            });
+                callback.setCallback(item -> {
+                    Intent intent = new Intent(getContext(), HubActivity.class);
+                    startActivity(intent);
+                });
 
-            authCall.enqueue(callback);
+                authCall.enqueue(callback);
+            }catch (Exception ex){
+                Dialog message = new MessageDialog(getContext(), "Ошибка", "Неправильный пинкод");
+                message.show();
+            }
         }
     }
 

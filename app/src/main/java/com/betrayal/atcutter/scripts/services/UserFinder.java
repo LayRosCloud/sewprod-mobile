@@ -3,6 +3,7 @@ package com.betrayal.atcutter.scripts.services;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.betrayal.atcutter.models.UserDataEntity;
 import com.betrayal.atcutter.scripts.data.DatabaseHelper;
@@ -32,9 +33,8 @@ public class UserFinder extends Service {
         return users;
     }
 
-    public UserDataEntity findByPinCode(String pinCode){
+    public UserDataEntity findByPinCode(String pinCode) throws Exception {
         SQLiteDatabase database = helper.getReadableDatabase();
-        database.beginTransaction();
 
         String[] args = {
                 pinCode
@@ -42,10 +42,13 @@ public class UserFinder extends Service {
 
         Cursor cursor = database.rawQuery(DatabaseConstants.SELECT_BY_PIN_CODE, args);
 
-        List<UserDataEntity> users = mapper.toListUser(cursor);
+        if(cursor.moveToNext()){
+            UserDataEntity user = mapper.toUser(cursor);
+            database.close();
+            return user;
+        }
+        throw new Exception();
 
-        database.endTransaction();
-        database.close();
-        return users.get(0);
+
     }
 }

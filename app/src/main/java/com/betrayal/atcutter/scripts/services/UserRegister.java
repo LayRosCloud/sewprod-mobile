@@ -8,6 +8,7 @@ import com.betrayal.atcutter.models.UserDataEntity;
 import com.betrayal.atcutter.scripts.data.constants.DatabaseConstants;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UserRegister extends Service {
     public UserRegister(Context context) {
@@ -15,26 +16,30 @@ public class UserRegister extends Service {
     }
 
     public void register(UserDataEntity user){
-        final int countParams = 3;
 
         SQLiteDatabase database = helper.getWritableDatabase();
-        database.beginTransaction();
+        //database.beginTransaction();
 
-        ContentValues contentValues = new ContentValues(countParams);
+        Object[] values = {
+                user.getEmail(),
+                user.getPassword(),
+                user.getPinCode()
+        };
 
-        contentValues.put(DatabaseConstants.COLUMN_EMAIL, user.getEmail());
-        contentValues.put(DatabaseConstants.COLUMN_PASSWORD, user.getPassword());
-        contentValues.put(DatabaseConstants.COLUMN_PIN_CODE, user.getPinCode());
-
-        database.insert(DatabaseConstants.TABLE_NAME, null, contentValues);
-
-        database.endTransaction();
+        database.execSQL(DatabaseConstants.INSERT, values);
+        //database.endTransaction();
         database.close();
     }
 
     public void ensureCreated(){
         SQLiteDatabase writableData = helper.getWritableDatabase();
         writableData.execSQL(DatabaseConstants.ENSURE_CREATED);
+        writableData.close();
+    }
+
+    public void ensureDeleted(){
+        SQLiteDatabase writableData = helper.getWritableDatabase();
+        writableData.execSQL("DROP TABLE IF EXISTS \"users\"");
         writableData.close();
     }
 }

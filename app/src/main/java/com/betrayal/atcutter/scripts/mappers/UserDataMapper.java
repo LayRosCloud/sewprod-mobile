@@ -1,6 +1,7 @@
 package com.betrayal.atcutter.scripts.mappers;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.betrayal.atcutter.models.UserDataEntity;
 import com.betrayal.atcutter.scripts.data.constants.DatabaseConstants;
@@ -20,10 +21,10 @@ public class UserDataMapper {
 
     public UserDataEntity toUser(Cursor cursor){
         return UserDataEntity.builder()
-                .setId(get(cursor, DatabaseConstants.COLUMN_ID))
-                .setEmail(get(cursor, DatabaseConstants.COLUMN_EMAIL))
-                .setPassword(get(cursor, DatabaseConstants.COLUMN_PASSWORD))
-                .setPinCode(get(cursor, DatabaseConstants.COLUMN_PIN_CODE))
+                .setId(cursor.getInt(0))
+                .setEmail(cursor.getString(1))
+                .setPassword(cursor.getString(2))
+                .setPinCode(cursor.getString(3))
                 .build();
     }
 
