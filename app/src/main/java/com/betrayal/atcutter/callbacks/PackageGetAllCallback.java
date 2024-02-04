@@ -25,11 +25,16 @@ import retrofit2.Response;
 
 public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> {
     private final ListView listView;
+    private InsideCallback<List<PackageEntity>> callback;
     public PackageGetAllCallback(@NonNull Context context, @NonNull ListView listView){
         super(context);
         this.listView = listView;
         setCanDisableLoadingDialog(false);
         showLoadingDialog();
+    }
+
+    public void subscribe(InsideCallback<List<PackageEntity>> callback){
+        this.callback = callback;
     }
 
     @Override
@@ -42,6 +47,9 @@ public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> 
 
         callback.subscribe(partyList -> {
             initialPartyItemOnEveryPackage(partyList, packages);
+            if(this.callback != null){
+                this.callback.success(packages);
+            }
         });
 
         packageCall.enqueue(callback);

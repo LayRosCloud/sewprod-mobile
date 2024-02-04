@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.betrayal.atcutter.R;
+import com.betrayal.atcutter.models.ClothOperationEntity;
 import com.betrayal.atcutter.models.PackageEntity;
 import com.betrayal.atcutter.scripts.ExceptionConstants;
 
@@ -18,16 +19,22 @@ import retrofit2.Response;
 
 public class CreatedRangePackagesCallback extends CallbackWrapper<List<PackageEntity>>{
     private final View view;
+    private InsideCallback<List<PackageEntity>> callback;
     public CreatedRangePackagesCallback(@NonNull Context context, View view) {
         super(context);
         this.view = view;
         showLoadingDialog();
     }
 
+    public void subscribe(InsideCallback<List<PackageEntity>> callback){
+        this.callback = callback;
+    }
+
     @Override
     protected void successResponse(Response<List<PackageEntity>> item) {
-        NavController navController = Navigation.findNavController(view);
-        navController.navigate(R.id.action_packageHandlerFragment_to_packageFragment);
+        if(callback != null){
+            callback.success(item.body());
+        }
     }
 
     @Override

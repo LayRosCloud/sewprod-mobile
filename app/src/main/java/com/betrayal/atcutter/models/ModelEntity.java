@@ -1,10 +1,12 @@
 package com.betrayal.atcutter.models;
 
+import java.util.List;
+
 public class ModelEntity extends Entity {
     private String title = "Треники";
     private String description;
     private String codeVendor;
-    private int percent;
+    private List<OperationEntity> operations;
 
     public String getTitle() {
         return title;
@@ -30,11 +32,12 @@ public class ModelEntity extends Entity {
         this.codeVendor = codeVendor;
     }
 
-    public int getPercent() {
-        return percent;
+
+    public List<OperationEntity> getOperations() {
+        return operations;
     }
 
-    public void setPercent(int percent) {
-        this.percent = percent;
+    public void setOperations(List<OperationEntity> operations) {
+        this.operations = operations;
     }
 }

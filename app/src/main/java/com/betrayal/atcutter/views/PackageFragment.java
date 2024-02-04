@@ -17,13 +17,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.betrayal.atcutter.R;
+import com.betrayal.atcutter.adapters.PackageAdapter;
+import com.betrayal.atcutter.callbacks.InsideCallback;
 import com.betrayal.atcutter.callbacks.PackageGetAllCallback;
 import com.betrayal.atcutter.databinding.FragmentPackageBinding;
 import com.betrayal.atcutter.models.PackageEntity;
 import com.betrayal.atcutter.server.HttpBuilder;
 import com.betrayal.atcutter.server.repositories.PackageRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,9 +49,15 @@ public class PackageFragment extends Fragment {
         final HttpBuilder httpBuilder = new HttpBuilder();
         final PackageRepository repository = httpBuilder.createService(PackageRepository.class);
         final Call<List<PackageEntity>> packageCall = repository.getAll(httpBuilder.getAuthorizationHeader());
-        final Callback<List<PackageEntity>> callback = new PackageGetAllCallback(getContext(), packageList);
-        packageCall.enqueue(callback);
+        final PackageGetAllCallback callback = new PackageGetAllCallback(getContext(), packageList);
+        List<PackageEntity> packages = new ArrayList<>();
 
+        callback.subscribe(items -> {
+            packages.clear();
+            packages.addAll(items);
+        });
+
+        packageCall.enqueue(callback);
         EditText search = binding.search;
 
 
@@ -64,7 +74,9 @@ public class PackageFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                List<PackageEntity> arrayFiltered = packages.stream().filter(x->x.getParty().getCutNumber().contains(s.toString())).collect(Collectors.toList());
+                PackageAdapter adapter = new PackageAdapter(getContext(), arrayFiltered);
+                packageList.setAdapter(adapter);
             }
         });
         binding.navigationButton.setOnClickListener(v -> {
