@@ -194,17 +194,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/button6" />
 
             <Button
-                android:id="@+id/notRemember"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="50dp"
-                android:textColor="@color/black"
-                android:background="@drawable/pincode_background"
-                android:text="Забыли"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button7" />
-
-            <Button
                 android:id="@+id/button0"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -219,7 +208,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/button8" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/clearButton"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="50dp"

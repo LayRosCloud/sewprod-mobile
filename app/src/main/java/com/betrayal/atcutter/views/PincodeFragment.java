@@ -39,7 +39,7 @@ public class PincodeFragment extends Fragment {
     private final StringBuilder pinCode;
     private final List<RadioButton> radioButtons;
 
-    private final static int COUNT_CELLS = 5;
+    public final static int COUNT_CELLS = 5;
 
     public PincodeFragment() {
         pinCode = new StringBuilder();
@@ -64,6 +64,19 @@ public class PincodeFragment extends Fragment {
                 binding.button1, binding.button2, binding.button3, binding.button4, binding.button5,
                 binding.button6, binding.button7, binding.button8, binding.button9, binding.button0,
         };
+
+        binding.clearButton.setOnClickListener(v -> {
+            if(pinCode.toString().isEmpty()){
+                return;
+            }
+            pinCode.deleteCharAt(pinCode.length() - 1);
+            refresh();
+        });
+
+        binding.notRemember.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(getView());
+            navController.navigate(R.id.action_pincodeFragment_to_authFragment);
+        });
 
         for (Button button: buttons) {
             button.setOnClickListener(this::clickOnButton);
