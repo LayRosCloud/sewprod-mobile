@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import com.betrayal.atcutter.adapters.PartyAdapter;
 import com.betrayal.atcutter.models.PartyEntity;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Response;
 
@@ -22,7 +24,15 @@ public class PartySpinnerCallback extends CallbackWrapper<List<PartyEntity>>{
 
     @Override
     protected void successResponse(Response<List<PartyEntity>> item) {
-        ArrayAdapter<PartyEntity> adapter = new PartyAdapter(context, item.body());
+        List<PartyEntity> parties = item.body();
+        Date now = new Date();
+
+        parties = parties.stream()
+                .filter(x -> x.getDateStart().getYear() >= now.getYear() && x.getDateStart().getYear() <= (now.getYear() + 1))
+                .collect(Collectors.toList());
+
+        ArrayAdapter<PartyEntity> adapter = new PartyAdapter(context, parties);
+
         spinner.setAdapter(adapter);
     }
 

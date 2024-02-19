@@ -5,12 +5,12 @@ import com.betrayal.atcutter.models.PackageEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupPackage {
-    private String date;
+public class SectionPackage {
+    private String header;
     private final List<PackageEntity> packageEntities;
 
-    public GroupPackage(String date) {
-        this.date = date;
+    public SectionPackage(String header) {
+        this.header = header;
         this.packageEntities = new ArrayList<>();
     }
 
@@ -22,11 +22,15 @@ public class GroupPackage {
         packageEntities.add(packageEntity);
     }
 
-    public String getDate() {
-        return date;
+    public void addAll(List<PackageEntity> packages){
+        packageEntities.addAll(packages);
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 }
