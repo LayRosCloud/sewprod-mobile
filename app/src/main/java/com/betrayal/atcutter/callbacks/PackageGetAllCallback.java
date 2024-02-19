@@ -1,35 +1,44 @@
 package com.betrayal.atcutter.callbacks;
 
 import android.content.Context;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.betrayal.atcutter.adapters.PackageAdapter;
+import com.betrayal.atcutter.adapters.PartyHeaderAdapter;
 import com.betrayal.atcutter.models.PackageEntity;
 import com.betrayal.atcutter.models.PartyEntity;
 import com.betrayal.atcutter.scripts.ExceptionConstants;
-import com.betrayal.atcutter.scripts.model.GroupPackage;
+import com.betrayal.atcutter.scripts.model.SectionPackage;
 import com.betrayal.atcutter.server.HttpBuilder;
 import com.betrayal.atcutter.server.repositories.PartyRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> {
-    private final ListView listView;
-    public PackageGetAllCallback(@NonNull Context context, @NonNull ListView listView){
+    private final RecyclerView listView;
+    private InsideCallback<List<PackageEntity>> callback;
+    public PackageGetAllCallback(@NonNull Context context, @NonNull RecyclerView listView){
         super(context);
         this.listView = listView;
         setCanDisableLoadingDialog(false);
         showLoadingDialog();
+    }
+
+    public void subscribe(InsideCallback<List<PackageEntity>> callback){
+        this.callback = callback;
     }
 
     @Override
@@ -42,6 +51,9 @@ public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> 
 
         callback.subscribe(partyList -> {
             initialPartyItemOnEveryPackage(partyList, packages);
+            if(this.callback != null){
+                this.callback.success(packages);
+            }
         });
 
         packageCall.enqueue(callback);
@@ -50,11 +62,37 @@ public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> 
     private void initialPartyItemOnEveryPackage(List<PartyEntity> partyList, List<PackageEntity> packageList){
         final Map<Integer, PartyEntity> partyMap = convertListToMap(partyList);
         connectPartyToPackage(packageList, partyMap);
+        Date now = new Date();
+        packageList = packageList.stream()
+                .filter(x -> x.getParty().getDateStart().getYear() >= now.getYear() && x.getParty().getDateStart().getYear() <= (now.getYear() + 1))
+                .collect(Collectors.toList());
 
-        PackageAdapter packageAdapter = new PackageAdapter(context, packageList);
+        List<SectionPackage> sectionList = new ArrayList<>();
+        Hashtable<String, List<PackageEntity>> hashtable = new Hashtable<>();
+        for (PackageEntity packageEntity: packageList){
+            String cutNumber = packageEntity.getParty().getCutNumber();
+            List<PackageEntity> list = hashtable.get(cutNumber);
+            if(list == null){
+                list = new ArrayList<>();
+                hashtable.put(cutNumber, list);
+            }
+            list.add(packageEntity);
+        }
+
+        for (String key: hashtable.keySet()){
+            SectionPackage sectionPackage = new SectionPackage(key);
+            List<PackageEntity> list = hashtable.get(key);
+            sectionPackage.addAll(list);
+            sectionList.add(sectionPackage);
+        }
+
+
+        PartyHeaderAdapter packageAdapter = new PartyHeaderAdapter(sectionList);
         listView.setAdapter(packageAdapter);
+        listView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         dismissDialog();
     }
+
     private Map<Integer, PartyEntity> convertListToMap(List<PartyEntity> list){
         final Map<Integer, PartyEntity> map = new HashMap<>();
         for (PartyEntity item:
@@ -69,20 +107,6 @@ public class PackageGetAllCallback extends CallbackWrapper<List<PackageEntity>> 
                 packages) {
             packageItem.setParty(partyMap.get(packageItem.getPartyId()));
         }
-//        final List<GroupPackage> groupPackages = new ArrayList<>();
-//
-//        for (int i = 0; i < packages.size(); i++) {
-//            String date = packages.get(i).getParty().getDateStart().toString();
-//            GroupPackage groupPackage = new GroupPackage(date);
-//
-//            for (int j = 0; j < packages.size(); j++) {
-//                if(date.equals(packages.get(j).getParty().getDateStart().toString())){
-//                    groupPackage.add(packages.get(j));
-//                }
-//            }
-//            groupPackages.add(groupPackage);
-//        }
-//        return groupPackages;
     }
 
     @Override

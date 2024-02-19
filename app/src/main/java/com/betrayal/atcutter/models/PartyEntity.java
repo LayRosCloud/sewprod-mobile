@@ -8,6 +8,7 @@ public class PartyEntity extends Entity {
     private int modelId;
     private int personId;
     private int count;
+    private PriceEntity price;
     private Date dateStart;
     private Date dateEnd;
     private boolean isDefected;
@@ -110,5 +111,13 @@ public class PartyEntity extends Entity {
 
     public void setModel(ModelEntity model) {
         this.model = model;
+    }
+
+    public PriceEntity getPrice() {
+        return price;
+    }
+
+    public void setPrice(PriceEntity price) {
+        this.price = price;
     }
 }

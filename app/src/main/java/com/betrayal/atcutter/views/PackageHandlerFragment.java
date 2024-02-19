@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,26 +16,37 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.betrayal.atcutter.R;
+import com.betrayal.atcutter.callbacks.ClothOperationCreateCallback;
 import com.betrayal.atcutter.callbacks.CreatedRangePackagesCallback;
+import com.betrayal.atcutter.callbacks.InsideCallback;
 import com.betrayal.atcutter.callbacks.MaterialSpinnerCallback;
 import com.betrayal.atcutter.callbacks.PartySpinnerCallback;
+import com.betrayal.atcutter.callbacks.PriceCreateCallback;
 import com.betrayal.atcutter.callbacks.SizeSpinnerCallback;
 import com.betrayal.atcutter.databinding.FragmentPackageHandlerBinding;
+import com.betrayal.atcutter.models.ClothOperationEntity;
 import com.betrayal.atcutter.models.MaterialEntity;
+import com.betrayal.atcutter.models.ModelEntity;
+import com.betrayal.atcutter.models.OperationEntity;
 import com.betrayal.atcutter.models.PackageEntity;
 import com.betrayal.atcutter.models.PartyEntity;
+import com.betrayal.atcutter.models.PriceEntity;
 import com.betrayal.atcutter.models.SizeEntity;
 import com.betrayal.atcutter.scripts.CloningComponentHelper;
 import com.betrayal.atcutter.scripts.TableControllerAdder;
 import com.betrayal.atcutter.server.HttpBuilder;
 import com.betrayal.atcutter.server.ServerConstants;
+import com.betrayal.atcutter.server.repositories.ClothOperationRepository;
 import com.betrayal.atcutter.server.repositories.MaterialRepository;
 import com.betrayal.atcutter.server.repositories.PackageRepository;
 import com.betrayal.atcutter.server.repositories.PartyRepository;
+import com.betrayal.atcutter.server.repositories.PriceRepository;
 import com.betrayal.atcutter.server.repositories.SizeRepository;
 import com.betrayal.atcutter.views.dialogues.MessageDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -119,12 +132,37 @@ public class PackageHandlerFragment extends Fragment {
         try{
             PartyEntity party = (PartyEntity) parties.getSelectedItem();
             SizeEntity size = (SizeEntity) sizes.getSelectedItem();
-            List<PackageEntity> packages = getAllPackagesFromComponents(party, size);
 
+            List<PackageEntity> packages = getAllPackagesFromComponents(party, size);
             PackageRepository repository = httpBuilder.createService(PackageRepository.class);
+
             Call<List<PackageEntity>> packageCall = repository.createRange(packages, httpBuilder.getAuthorizationHeader());
-            Callback<List<PackageEntity>> packageCallback = new CreatedRangePackagesCallback(getContext(), binding.getRoot());
+            CreatedRangePackagesCallback packageCallback = new CreatedRangePackagesCallback(getContext(), binding.getRoot());
+            PriceRepository priceRepository = httpBuilder.createService(PriceRepository.class);
+
+            packageCallback.subscribe(items -> {
+                for (PackageEntity item: items) {
+                    ModelEntity model = party.getModel();
+                    for (OperationEntity operation : model.getOperations()) {
+                        PriceEntity price = new PriceEntity();
+
+                        price.setNumber(party.getPrice().getNumber() * (operation.getPercent() / 100.0));
+                        price.setDate(new Date());
+
+                        Call<PriceEntity> priceCall = priceRepository.create(price, httpBuilder.getAuthorizationHeader());
+                        ClothOperationEntity clothOperation = new ClothOperationEntity();
+                        clothOperation.setPackageId(item.getId());
+                        clothOperation.setOperationId(operation.getId());
+                        priceCall.enqueue(new PriceCreateCallback(getContext(), clothOperation));
+                    }
+                }
+                NavController navController = Navigation.findNavController(binding.getRoot());
+                navController.navigate(R.id.action_packageHandlerFragment_to_packageFragment);
+
+            });
+
             packageCall.enqueue(packageCallback);
+
         }catch (Exception exception){
             Dialog dialog = new MessageDialog(getContext(), "Ошибка валидации", "Выберите все нужные элементы");
             dialog.show();
